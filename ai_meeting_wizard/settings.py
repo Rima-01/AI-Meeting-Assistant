@@ -11,6 +11,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +25,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3rqihuf8++6$0z(%1ww$y5wltr3hvie2382@u-a(i(vr7d4%u0'
+SECRET_KEY = 'django-insecure-6q_2a=en*6xk7)a@k&ujc2t42@-wqa#(yck$rqj-*lqcc^f-)b'
+#SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost',
+    '0.0.0.0',
+    '127.0.0.1',
+    ]
 
 
 # Application definition
@@ -37,7 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'meetings',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -83,10 +94,10 @@ WSGI_APPLICATION = 'ai_meeting_wizard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'meeting_db',
+        'NAME': 'myflix_db',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'localhost',
+        'HOST': 'meeting-database-1.c6feexinnlh9.us-east-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }

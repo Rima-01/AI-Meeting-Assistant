@@ -1,13 +1,30 @@
 import openai
+import os
+from dotenv import load_dotenv
+# Load environment variables from .env file
+load_dotenv()
+# Get OpenAI API Key from environment variables
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
-openai.api_key = "YOUR_OPENAI_API_KEY"
+# Debugging: Print API key (Remove after confirming)
+print("OpenAI API Key in utils.py:", openai.api_key)
+
+# Check if the API key is loaded correctly (Optional, for debugging)
+if not openai.api_key:
+    raise ValueError("⚠️ OpenAI API Key not found! Make sure it's set in the .env file.")
+    
+#openai.api_key = "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"
 
 def transcribe_audio(file_path):
+#    with open(file_path, "rb") as audio_file:
+#        transcript = openai.Audio.transcribe("whisper-1", audio_file)
+#        return transcript["text"]
     with open(file_path, "rb") as audio_file:
-        transcript = openai.Audio.transcribe("whisper-1", audio_file)
-        return transcript["text"]
-        
-import openai
+        response = openai.audio.transcriptions.create(   
+            model="whisper-1",
+            file=audio_file
+        )
+    return response.text
 
 openai.api_key = "YOUR_OPENAI_API_KEY"
 
